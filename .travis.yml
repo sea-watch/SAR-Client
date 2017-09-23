@@ -26,6 +26,7 @@ env:
 before_script:
   - npm install bower
   - ./node_modules/.bin/bower install
+  - sed -e s,%%COUCHDB_URL%%,$COUCHDB_URL,g src/config/example_config.js > src/config/config.js
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run pack:mac   ; fi
