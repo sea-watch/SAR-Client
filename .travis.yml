@@ -19,6 +19,10 @@ addons:
       - graphicsmagick
       - xz-utils
 
+env:
+  global:
+    secure: JynpkMZNBW90+1NbHYJuiPHYbXURFOnZKMd/TfXreFJimssVHnMS8SQPm2wnLYXfHKx+lqI5tV3mWj8YdXSs8+yWUC96QEyhZjpJG3NsLzYfTdjh5j/d4/rrHJgDYEiNz9/03PCxFZJ8BWXih+PPcoZNqSWUrAOaRIVrmAKqDKYsteTUY3pVrELfujvZlkE/dnPtmdJwX9KdIpVmDl5SecY/aOHb+ImEAjc7kPf5Gbe3SC1FP22o0nNtWuSpaZiMBIudD2djX8r9214V4I1KCuVK1/lo6DnUBrD9U0SSFe8XHrRSQOr54KXplC+jJlCk3bM1a6QH60EB6eQ77bJQ++kkj1GU4SL+Dswu4OGL6w0lQKL6ey4lNsUPQeIaIydAIoCacE9xEWU+6KZkiLIPOVJlPNKrANV+NMNdBQSCYe8nMSNUhlahmeYsCyEdPg7eXFaRMqDQh1ZjRE/ljdDwi8DW9K1Ne2pfL98w/GxZdkn9doAuLx9pn5DSU5MwSXWkauQvlYHX1ou/tlGGQd0e40FyPH79KDlEPe7J121Wa8OQyJBP0ZBnrPg4LaVgX74fM7An2TSIdbrsR/ZbQLHv9141EYAFx51JJVz08dZYBrI8FuBPi5Wdb3fP3kEQTYMwcyj5H0q9gQndH+P2hM8RFUOkh/zaL1njS3N07M01W6o=
+
 before_script:
   - npm install bower
   - ./node_modules/.bin/bower install
