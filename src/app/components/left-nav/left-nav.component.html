@@ -1,0 +1,25 @@
+<div class="col-sm-2 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li>
+      <h3>Vehicles</h3>
+    </li>
+    <li *ngFor="let vehicle of vehicles;" class="vehicle filter" data-id="1337">
+      
+      <a (click)="go_to_vehicle(vehicle)">
+        {{vehicle.title}}
+      </a>
+    </li>
+    <li class="vehicle filter" data-id="all">
+      <a>All</a>
+    </li>
+    <li>
+      <h3>Status</h3>
+    </li>
+    <li *ngFor="let status of statuses; let i = index;" class="filter status"
+        data-class="{{status.index}}" [ngClass]="getStatusClasses(i+1, status.index)" [hidden]="getStatusFilters().indexOf( status.index ) === -1">
+      <a (click)="filter_by_status(i+1)">
+        {{status.title}}
+      </a>
+    </li>
+  </ul>
+</div>

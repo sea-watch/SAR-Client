@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<h3>Downloads</h3>
+
+{% for release in site.github.releases limit:20 %}
+<div class="row">
+  <div class="col-md-12">
+    <h4>{{ release.published_at }} - {{ release.tag_name }}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ul>
+    {% for asset in release.assets %}
+      <li>
+      {% if asset.name contains '.exe' %}
+        Windows:
+        <a href="{{ asset.browser_download_url }}">{{ asset.name }}</a> ({{ asset.size | divided_by: 1048576.0 | ceil }} MB)
+      {% elsif asset.name contains '.dmg' %}
+        macOS:
+        <a href="{{ asset.browser_download_url }}">{{ asset.name }}</a> ({{ asset.size | divided_by: 1048576.0 | ceil }} MB)
+      {% else %}
+        Linux:
+        <a href="{{ asset.browser_download_url }}">{{ asset.name }}</a> ({{ asset.size | divided_by: 1048576.0 | ceil }} MB)
+      {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endfor %}

@@ -1,0 +1,11 @@
+{
+  "couchdb_auth_only": true,
+  "admins": {
+    "names": ["onefleet"],
+    "roles": ["_admin"]
+  },
+  "members": {
+    "names": [],
+    "roles": ["_reader", "_writer"]
+  }
+}

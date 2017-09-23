@@ -1,0 +1,37 @@
+{
+    "docs": [{
+            "_id": "2017-02-20T08:06:36.360Z-reportedBy-IUV",
+            "state": "1",
+            "boatType": "1",
+            "boatCondition": "2",
+            "engineWorking": true,
+            "peopleCount": 150,
+            "womenCount": 22,
+            "childrenCount": 18,
+            "disabledCount": 2,
+            "createdAt":"2017-02-20T08:06:36.360Z",
+            "lastUpdate":"2017-02-20T08:06:36.360Z",
+            "osc":"IUV",
+            "addtitionalInformations":"bigger boat",
+            "otherBoatsInvolved":"SW2",
+            "reportBy":"IUV"
+        },
+        {
+            "_id": "2017-02-20T08:06:36.360Z-reportedBy-SW2",
+            "state": "2",
+            "boatType": "2",
+            "boatCondition": "1",
+            "engineWorking": false,
+            "peopleCount": 135,
+            "womenCount": 55,
+            "childrenCount": 25,
+            "disabledCount": 3,
+            "createdAt":"2017-02-20T10:06:36.360Z",
+            "lastUpdate":"2017-02-20T10:06:36.360Z",
+            "osc":"SW2",
+            "addtitionalInformations":"big boat",
+            "otherBoatsInvolved":"IUV",
+            "reportBy":"SW2"
+        }
+    ]
+}

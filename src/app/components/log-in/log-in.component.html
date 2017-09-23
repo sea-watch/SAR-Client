@@ -1,0 +1,17 @@
+<div [hidden]="hideLoginState()" style="position: absolute;top:0;right:0;bottom:0;left:0; z-index:9999;">
+	
+
+				<div class="loginmodal-container">
+					<h1>Login to Your Account</h1><br>
+				  <form (ngSubmit)="doLogin()">
+					<input type="text" name="user" placeholder="Username" [(ngModel)]="loginData.username">
+					<input type="password" name="pass" placeholder="Password" [(ngModel)]="loginData.password">
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				  </form>
+				  <div class="login-help">
+				  	<a (click)="proceedOffline=true">Proceed without login</a>
+				  </div>
+				</div>
+
+
+</div>

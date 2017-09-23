@@ -1,0 +1,109 @@
+/****** MODAL ******/
+
+.cases-container {
+    width: 100% !important;
+    border-radius: 2px;
+    overflow: hidden;
+    min-height:100vh;
+    margin:80px -15px 0px -15px;
+
+}
+
+.case {
+    margin:15px 0px;
+}
+
+.cases {
+    list-style-type: none;
+    margin:0px;
+    padding:0px;
+}
+
+.case>.row {
+    background: #ffffff;
+    font-size: 1.5rem;
+    position:relative;
+    border-top:2px solid #727881;
+}
+
+.case>.row>.toggler {
+        cursor:pointer;
+        padding: 15px 15px;
+        height:50px;
+}
+
+.case>.row .btn-sm {
+    
+}
+
+.edit {opacity:0.5;     
+    position: absolute;
+    right: 10px;
+    top: 10px; 
+}
+.edit:hover {opacity:0.8;}
+
+.case>.row>.toggler>.col-xs-3 span:after {
+    content:'-';
+    visibility: hidden;
+    display:inline-block;
+}
+
+.case>.row>.toggler>.col-xs-3 [hidden] {
+    visibility: hidden;
+    display:block;
+}
+
+
+.case>.meta {
+    margin-bottom:7px;
+    color:rgba(114,120,129,0.7);
+}
+
+.caseID {font-weight:500;}
+
+.case.closed .row, .case.rescued .row {border-color:rgb(66, 183, 42);}
+.case.attended .row, .case.possibletarget .row, .case.confirmedtarget .row {border-color:#ff8942;}
+.case.critical .row, .case.needhelp .row {border-color:#ff4344;}
+
+.case .status {font-weight:500;}
+
+.case .status:before {
+    font-family: Material-Design-Iconic-Font;
+    content: '\f29b';
+    margin-right:7px;
+    font-weight:normal;
+}
+
+
+.case_infos {
+    padding-top:15px;
+    background:rgba(255,255,255,0.5);
+    border-top:1px solid rgba(114,120,129,0.7);
+}
+
+.case_infos>.row {
+    margin:0px;
+    padding:7px 0px;
+}
+
+#cases .no-edit .form-control, .form-control[disabled], .form-control[readonly], fieldset[disabled] {color:rgba(114,120,129,0.7);}
+.status.critical,
+.status.needhelp {
+    color: #ff4344;
+}
+
+.status.confirmedtarget,
+.status.possibletarget,
+.status.attended {
+    color: #ff8942;
+}
+
+.status.closed, 
+.status.rescued {
+    color: rgb(66, 183, 42);
+}
+
+.material-design-icons {
+    font-family: Material-Design-Iconic-Font;
+}

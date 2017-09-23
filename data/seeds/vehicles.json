@@ -1,0 +1,45 @@
+{
+  "docs": [{
+               "_id":"SW2",
+               "title":"Sea-Watch 2",
+               "tracking_type":"EPAK",
+               "sat_number":"+0084123123",
+               "public":false,
+               "api_key":"SECRET",
+               "marker_color":"#17AFFA",
+               "location_alarm_enabled":true,
+               "location_alarm_recipents":"nic@mail,com",
+               "logo_id":"2017-02-17T19:16:27.150Z",
+               "speed_over_ground":8,
+               "MMSI":244870698
+            },
+            {
+               "_id":"IUV",
+               "title":"IUVENTA",
+               "tracking_type":"APP",
+               "sat_number":"+0084123123",
+               "public":false,
+               "api_key":"SECRET",
+               "marker_color":"#FF00FF",
+               "location_alarm_enabled":true,
+               "location_alarm_recipents":"nic@mail.com",
+               "logo_id":"2017-02-17T19:16:45.EADZ",
+               "speed_over_ground":8,
+               "MMSI":244870962
+            },
+            {
+               "_id":"MOO",
+               "title":"SW Moonbird",
+               "tracking_type":"IRIDIUMGO",
+               "tracking_sender_address":"nic@iridiumsat.com",
+               "sat_number":"+0084123123",
+               "public":false,
+               "api_key":"SECRET",
+               "marker_color":"#FFFF00",
+               "location_alarm_enabled":true,
+               "location_alarm_recipents":"nic@mail.com",
+               "logo_id":"2017-02-17T19:16:45.EADZ",
+               "speed_over_ground":8
+            }
+          ]
+}

@@ -1,0 +1,22 @@
+---
+---
+@charset "utf-8";
+
+$border-color: #e5e5e5;
+$footer-color: #777;
+
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid $border-color;
+}
+
+.footer {
+  padding-top: 19px;
+  color: $footer-color;
+  border-top: 1px solid $border-color;
+}

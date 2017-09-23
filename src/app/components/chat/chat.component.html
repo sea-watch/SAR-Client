@@ -1,0 +1,54 @@
+<div class="col-sm-3 col-md-3 col-sm-offset-9 col-md-offset-9 chat"  ng-controller="messageController">
+	        <div class="chat-control form-inline">
+	          <div class="searchbox">
+	            <input type="text" class="form-control">
+	          </div>
+	        </div>
+	        <div class="chat_filter">
+		        <div class="btn-group">
+		         <button class="btn btn-sm btn-default" (click)='updateFilterType("all")' [class.active]="filtertype == 'all'">All</button>
+			          <button class="btn btn-sm btn-default" (click)='updateFilterType("chat")' [class.active]="filtertype == 'chat'">Chat</button>
+			          <button disabled class="btn btn-sm btn-default" (click)='updateFilterType("log")' [class.active]="filtertype == 'log'">Log</button>
+				</div>
+				</div>
+	        <div class="message-list" id="message_list">
+	        	 
+	            <div *ngFor="let message of messages;">
+		            <!--repeat messages-->
+		            <div class="message-container other_user" *ngIf="message.type == 'message'&&(filtertype == 'chat'||filtertype == 'all')">
+		                        <div class="image_box" data-toggle="tooltip" data-placement="left">
+
+		                            <span class="img"></span>
+		                        </div>
+
+		                        <div class="message">
+		                            <div class="message-meta">
+		                              <span class="meta_user">{{message.author}}</span> · <span class="timestamp">{{message.createdAt | date: 'y-MM-dd · hh:mm:ss. z'}}</span>  
+		                            </div>
+		                            <div class="text">
+		                              {{message.text}}
+		                            </div>
+
+		                        </div>
+		            </div>
+	                <div class="message-container log" *ngIf="message.type == 'log'&&(filtertype == 'log'||filtertype == 'all')">
+	                  <div class="message">
+	                  <div class="message-meta">{{message.createdAt | date: 'y-MM-dd · hh:mm:ss. z'}}</div>
+	                  <div class="log-text">
+	                      <a class="meta_user">{{message.author}}</a> <span>{{message.text}}</span>
+	                  </div>
+	                  </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="input-container">
+	          <form (ngSubmit)="submitMessage()">
+	            <div class="input">
+	              <textarea name="chatInput" id="chatInput" placeholder="Your message…"  (keydown)="keyDownFunction($event)" style="width:100%;">{{data.messagetext}}</textarea>
+	            </div>
+	          </form>
+	        </div>
+
+
+</div>

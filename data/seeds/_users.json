@@ -1,0 +1,13 @@
+{
+  "docs": [{
+			   "_id": "org.couchdb.user:testuser",
+			   "password_scheme": "pbkdf2",
+			   "iterations": 10,
+			   "name": "testuser",
+			   "roles": [
+			   ],
+			   "type": "user",
+			   "derived_key":"724992c359d0635fb7246cf6b2c2dca3dfa19996",
+			   "salt": "b6f4d6620e09571b06798d189b714c2f"
+			}]
+}

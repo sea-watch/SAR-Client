@@ -1,0 +1,269 @@
+<div class="modal-background-container" [hidden]="hideCreateCaseForm">
+    <div class="modal-container" id="createCaseContainer">
+        <form id="createCaseForm" #f="ngForm">
+            <div class="row">
+                <div class="col-md-12 header">
+                    <h2>
+                        {{caseId ? 'Edit case: ' + case._id : 'Create a new case'}}
+                    </h2>
+                    <p *ngIf="caseId">Last updated at {{case.lastUpdate | date: 'y-MM-d · hh:mm:ss.'}} by {{case.reportedBy}}</p>
+                    <p>A case contains all the important informations and should be updated durring the mission.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div *ngIf="edited" class="alert alert-danger" role="alert">
+                    <span class="sr-only">Warning:</span> Case has been changed by {{case.reportedBy ? case.reportedBy : 'someone else'}}! <a class="refresh-link" (click)="refresh()">Please relaod!</a>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="form-group col-md-2">
+                    <label for="boat_type">Boat Type</label>
+                    <select class="form-control" name="boat_type" id="boat_type" [(ngModel)]="case.boatType" autofocus>
+                        <option *ngFor="let key of boatTypeKeys" [value]="key">{{boatTypeList[key]}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="boat_status">Status</label>
+                    <select class="form-control" name="boat_status" id="boat_status" [(ngModel)]="case.state">
+                        <option *ngFor="let key of stateKeys" [value]="key">{{stateList[key]}}</option>
+                    </select>
+                    <input type="hidden" name="source_type" value="create_case_form">
+                </div>
+                <div class="form-group col-md-2">
+                    <label style="display:block" for="ppl_in_water">People in Water</label>
+
+                    <input type="checkbox" [checked]="case.boatCondition == '2'" (change)="$event.target.checked? (case.boatCondition = 2) : (case.boatCondition = 1)">
+
+                    <!-- Hier hätte ich gerneslo was: https://ziscloud.github.io/angular-bootstrap-toggle/ "No grey" > "Yes red"  -->
+                </div>
+
+                <div class="form-group form-inline col-md-2">
+                    <label style="display:block" for="engine_working">Engine</label>
+                    <input type="checkbox" id="engine_working" name="engine_working" value="1" [(ngModel)]="case.engineWorking">
+                    <!-- Hier hätte ich gerne so was: https://ziscloud.github.io/angular-bootstrap-toggle/ "Working grey" > "Defect red"  -->
+                </div>
+                <div class="form-group col-md-4">
+                    <label style="display:block" for="osc">On-Scene-Coordinator (OSC)</label>
+                    <input class="form-control" id="osc" name="osc" value="SW2" [(ngModel)]="case.osc">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" ng>
+                    <label style="display:block;">Position</label>
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-default btn-md"
+                        [class.active]="casemeta.location_type == 'GMS'" (click)="casemeta.location_type = 'GMS'">GMS</a>
+                        <a class="btn btn-default btn-md active"
+                        [class.active]="casemeta.location_type == 'DD'" (click)="casemeta.location_type = 'DD'">DD</a>
+                    </div>
+                </div>
+                <style>
+                .col-xs-3 input{
+                    min-width:40px;
+                    margin-right:30px;
+                }
+                </style>
+                <div class="form-group col-md-3">
+                    <div class="dd_input" [hidden]="casemeta.location_type == 'GMS'">
+                        <label for="lat">Lat</label>
+                        <input class="form-control" type="number" min="0" step="0.000001" placeholder="Lat" name="lat" id="lat" [(ngModel)]="casemeta.dd_location && casemeta.dd_location.latitude" (ngModelChange)="updatePosition()">
+                    </div>
+                    <!--DMS input area-->
+                    <div class="dms_input" [hidden]="casemeta.location_type == 'DD'">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label for="dms_lat_degree">Latitude</label>
+                                <input class="form-control" type="number" min="0" placeholder="D" name="dms_lat_degree" id="dms_lat_degree" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.latitude.degree" (ngModelChange)="updatePosition()">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>&nbsp;</label>
+                                <input class="form-control" type="number" min="0" placeholder="M" name="dms_lat_minute" id="dms_lat_minute" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.latitude.minute" (ngModelChange)="updatePosition()">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>&nbsp;</label>
+                                <input class="form-control" type="number" min="0" placeholder="D" name="latitude_second" id="latitude_second" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.latitude.second" (ngModelChange)="updatePosition()">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>&nbsp;</label>
+                                <select name="latitude_direction" id="latitude_direction" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.latitude.direction" (ngModelChange)="updatePosition()">
+                                  <option value="N">N</option>
+                                  <option value="E">E</option>
+                                  <option value="S">S</option>
+                                  <option value="W">W</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--DMS input area end-->
+                </div>
+
+                <div class="form-group col-md-3">
+                    <div class="dd_input" [hidden]="casemeta.location_type == 'GMS'">
+                        <label for="lon">Longitude</label>
+                        <input class="form-control" type="number" step="0.000001" min="0" placeholder="Lon" name="lon" id="lon" [(ngModel)]="casemeta.dd_location && casemeta.dd_location.longitude" (ngModelChange)="updatePosition()">
+                    </div>
+
+                    <!--DMS input area-->
+                    <div class="dms_input" [hidden]="casemeta.location_type == 'DD'">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label for="dms_lon_degree">Longitude</label>
+                                <input class="form-control" type="number" placeholder="D" min="0" name="dms_lon_degree" id="dms_lon_degree" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.longitude.degree" (ngModelChange)="updatePosition()">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>&nbsp;</label>
+                                <input class="form-control" type="number" placeholder="M" min="0" name="dms_lon_minute" id="dms_lon_minute" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.longitude.minute" (ngModelChange)="updatePosition()">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>&nbsp;</label>
+                                <input class="form-control" type="number" min="0" placeholder="D" name="longitude_second" id="longitude_second" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.longitude.second" (ngModelChange)="updatePosition()">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>&nbsp;</label>
+                                <select name="longitude_direction" id="longitude_direction" [(ngModel)]="casemeta.dms_location && casemeta.dms_location.longitude.direction" (ngModelChange)="updatePosition()">
+                                  <option value="N">N</option>
+                                  <option value="E">E</option>
+                                  <option value="S">S</option>
+                                  <option value="W">W</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--DMS input area end-->
+
+                </div>
+                <div class="col-md-3">
+                    <label>GPS</label>
+                    <a class="btn btn-md btn-block btn-primary use_location" (click)="getCurrentPosition()"><i class="zmdi zmdi-pin"></i> Current Location</a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="passenger_count">How many people?</label>
+                    <input class="form-control" name="passenger_count" type="number" min="0" placeholder="How many people?" id="passenger_count" [(ngModel)]="case.peopleCount">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="passenger_count">… women?</label>
+                    <input class="form-control" name="women_on_board" type="number" min="0" placeholder="How many woman?" id="women_on_board" [(ngModel)]="case.womenCount">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="passenger_count">… children?</label>
+                    <input class="form-control" name="children_on_board" min="0" type="number" placeholder="How many children?" id="children_on_board" [(ngModel)]="case.childrenCount">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="passenger_count">… disabled?</label>
+                    <input class="form-control" name="disabled_on_board" type="number" min="0" placeholder="How many disabled?" id="disabled_on_board" [(ngModel)]="case.disabledCount">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Other boat/s involved?</label>
+                    <div class="other_boats">
+                        <input class="form-control" type="text" id="otherBoatsInvolved" [(ngModel)]="case.otherBoatsInvolved" name="otherBoatsInvolved">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Additional information</label>
+                    <div class="additional_infos">
+                        <textarea class="form-control" placeholder="Additional informations…" rows="3" name="addtitionalInformations" id="addtitionalInformations" [(ngModel)]="case.addtitionalInformations"></textarea>
+                    </div>
+                </div>
+            </div>
+
+<!--date_of_first_indication, position_of_first_indication und date_of_transhipment_or_rescue und position__of_transhipment_or_rescue, boat_after_interception und description, SAR_authority-->
+
+
+<!--
+boatAfterInterception:string;
+sarAuthority:string;
+dateOfFirstIndication:string;
+positionOfFirstIndication:string;
+dateOfTranshipment:string;
+positionOfTranshipment:string;
+incidentDescription:string;
+-->
+
+            <div [hidden]="!casemeta.show_mrcc_part">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <h3>Fields for MRCC Report</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Boat after interception</label>
+                        <div class="boatAfterInterception">
+                            <input class="form-control" type="text" id="boatAfterInterception" [(ngModel)]="case.boatAfterInterception" name="boatAfterInterception">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>SAR-Authority</label>
+                        <div class="sarAuthority">
+                            <input class="form-control" type="text" id="sarAuthority" [(ngModel)]="case.sarAuthority" name="sarAuthority">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Date of first indication</label>
+                        <div class="dateOfFirstIndication">
+                            <input class="form-control" type="text" id="dateOfFirstIndication" [(ngModel)]="case.dateOfFirstIndication" name="dateOfFirstIndication">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Position of first indication</label>
+                        <div class="positionOfFirstIndication">
+                            <input class="form-control" type="text" id="positionOfFirstIndication" [(ngModel)]="case.positionOfFirstIndication" name="positionOfFirstIndication">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Date of transhipment</label>
+                        <div class="dateOfTranshipment">
+                            <input class="form-control" type="text" id="dateOfTranshipment" [(ngModel)]="case.dateOfTranshipment" name="dateOfTranshipment">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Position of transhipment</label>
+                        <div class="positionOfTranshipment">
+                            <input class="form-control" type="text" id="positionOfTranshipment" [(ngModel)]="case.positionOfTranshipment" name="positionOfTranshipment">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>Description</label>
+                        <div class="incidentDescription">
+                            <textarea class="form-control" type="text" id="incidentDescription" [(ngModel)]="case.incidentDescription" name="incidentDescription"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <input (click)="closeModal()" value="Cancel" class="btn btn-danger">
+                    </div>
+                    <div class="col-md-3">
+                        <input (click)="save()" [disabled]="edited" value="Submit" class="btn btn-primary">
+                    </div>
+                    <div class="col-md-3 pull-right" [hidden]="casemeta.show_mrcc_part">
+                        <input (click)="casemeta.show_mrcc_part = !casemeta.show_mrcc_part" [hidden]="casemeta.show_mrcc_part" value="Generate MRCC Report" class="btn btn-primary"  *ngIf="case.reportStatus !== 'pending'">
+
+
+                        <input (click)="casemeta.show_mrcc_part = !casemeta.show_mrcc_part" [hidden]="casemeta.show_mrcc_part" value="Show Fields For MRCC Report" class="btn btn-primary"  *ngIf="case.reportStatus == 'pending'">
+
+                    </div>
+                    <div class="col-md-3 pull-right" [hidden]="!casemeta.show_mrcc_part" *ngIf="case.reportStatus !== 'pending'">
+                        <input (click)="sendReportToMRCC()" value="Send Report to MRCC" class="btn btn-primary">
+                    </div>
+                    <div class="col-md-3 pull-right" *ngIf="!case.reportStatus == 'pending'" [hidden]="!casemeta.show_mrcc_part">
+                        <input  value="Report Sent" class="btn btn-primary disabled" disabled>
+                    </div>
+                </div>
+        </form>
+    </div>*ngIf
+</div>

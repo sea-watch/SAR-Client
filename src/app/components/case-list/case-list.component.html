@@ -1,0 +1,86 @@
+<div class="cases-container" id="caseListContainer">
+    <ul class="cases">
+        <li *ngFor="let case of cases;" class="case filter {{   getStateClassName(case.state)}}">
+            <div class="meta">
+                <div class="row">
+                    <div class="col-md-7">
+                    <span class="updatedate">Last Update : {{case.lastUpdate | date: 'y-MM-dd · hh:mm:ss. z'}}</span><span>{{case.reportBy}}</span>
+                        
+                    </div>
+                    <div class="col-md-5 text-right">
+                        <span class="casedate">Created: {{case.createdAt | date: 'y-MM-dd · hh:mm:ss. z'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="toggler" (click)="toggleCase(case._id)">
+                <div class="status col-xs-3 {{getStateClassName(case.state)}}">{{getStateName(case.state)}}</div>
+                <div class="col-xs-2 caseID">{{getCaseHash(case._id)}}</div>
+                <div class="col-xs-2 boatType">{{getBoatTypeName(case.boatType)}}</div>
+                <div class="col-xs-3"><span [hidden]="case.boatCondition == 1">{{getBoatConditionName(case.boatCondition)}}</span></div>
+                </div>
+                <div class="col-xs-2 edit text-right">
+                    <a class="btn btn-sm btn-default" (click)="showEditCaseModal(case._id)">
+                        <i class="zmdi zmdi-edit"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="case_infos" [hidden]="toggled_cases.indexOf( case._id ) === -1 ">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        
+                        <label for="boat_type">Boat Type</label>
+                        <input disabled class="form-control" name="boat_type" type="text" value="{{getBoatTypeName(case.boatType)}}" id="boat_type">
+
+                        
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="boat_status">Status</label>
+                        <input disabled class="form-control" name="boat_status" type="text" value="{{getStateName(case.state)}}" id="boat_status">
+
+                        
+                        <!--<input disabled type="hidden" name="source_type" value="create_case_form">-->
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label style="display:block" for="ppl_in_water">People in Water</label>
+                        <input disabled type="checkbox" id="ppl_in_water" name="ppl_in_water"  [checked]="case.boatCondition == '2'" value="1"> 
+                        <!-- Hier hätte ich gerneslo was: https://ziscloud.github.io/angular-bootstrap-toggle/ "No grey" > "Yes red"  -->
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label style="display:block" for="engine_working">Engine</label>
+                        <input disabled type="checkbox" id="engine_working" name="engine_working" value="1" [(ngModel)]="case.engineWorking"> 
+                        <!-- Hier hätte ich gerneslo was:    "Working blue" > "Defect grey"  -->
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label style="display:block" for="osc">On-Scene-Coordinator (OSC)</label>
+                        <input disabled class="form-control" name="osc" type="text" value="{{case.osc}}" id="osc">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <span [innerHTML]="this.getLocation(case._id)"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="passenger_count">How many people?</label>
+                        <input disabled class="form-control" name="passenger_count" type="number" placeholder="How many people?" [(ngModel)]="case.peopleCount" id="passenger_count">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="passenger_count">… women?</label>
+                        <input disabled class="form-control" name="women_on_board" type="number" placeholder="How many woman?" [(ngModel)]="case.womenCount" id="women_on_board">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="passenger_count">… children?</label>
+                        <input disabled class="form-control" [(ngModel)]="case.childrenCount" name="children_on_board" type="number" placeholder="How many children?" id="children_on_board">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="passenger_count">… disabled?</label>
+                        <input disabled class="form-control" [(ngModel)]="case.disabledCount" name="disabled_on_board" type="number" placeholder="How many disabled?" id="disabled_on_board">
+                    </div>
+                </div>
+            </div>
+           <!-- Hier müsste noch ein Call-To-Action zum "Report MRCC Formular rein" -->
+        </li>
+    </ul>
+</div>

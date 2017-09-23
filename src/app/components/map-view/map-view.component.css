@@ -1,0 +1,8 @@
+.maps_display_mode {
+    height:100vh;
+    top:0px;
+}
+
+.leaflet-top.leaflet-left {
+    top: 48px;
+}

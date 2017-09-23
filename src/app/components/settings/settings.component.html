@@ -1,0 +1,53 @@
+<div class="modal-background-container" [hidden]="!settings_info.show">
+    <div class="modal-container" id="SettingsContainer">
+            <div class="row">
+                <div class="col-md-12 header">
+                    <h2>SAR-Client {{current_version}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div [hidden]="update_info.status_obj.status != 'update_required'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Update required!</h3>
+                            </div>
+                            <div class="panel-body">
+                                You need to update your application to version <strong>{{update_info.status_obj.version}}</strong>!
+                            </div>
+                        </div>
+                    </div>
+                    <div [hidden]="update_info.status_obj.status != 'update_possible'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Update available!</h3>
+                            </div>
+                            <div class="panel-body">
+                                Please update your application to version <strong>{{update_info.status_obj.version}}</strong>!
+                            </div>
+                        </div>
+                    </div>
+                    <div [hidden]="update_info.status_obj.status != 'update_possible'&&update_info.status_obj.status != 'update_required'">
+                        <a (click)="openExternal(update_info.status_obj.link)" class="btn btn-primary">Download New Version</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 header">
+                    <h4>SETTINGS</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form>
+                        <div class="form-group">
+                            <label for="db-remote-url">Database URL</label>
+                            <input id="db-remote-url" type="text" class="form-control" name="db-remote-uri" [(ngModel)]="db_remote_url">
+                        </div>
+                        <button class="btn btn-primary" (click)="updateSettings()">Save</button>
+                        <button class="btn btn-default" (click)="closeSettings()">Close</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+# Use container based trusty environment to make nodejs native extensions
+# work without extra package installs.
+sudo: false
+dist: trusty
+
+os:
+  - linux
+  - osx
+
+language: node_js
+node_js:
+  - 6
+
+addons:
+  apt:
+    packages:
+      # Needed for electron-builder to process .icns icon image files
+      - icnsutils
+      - graphicsmagick
+      - xz-utils
+
+before_script:
+  - npm install bower
+  - ./node_modules/.bin/bower install
+
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run pack:mac   ; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then npm run pack:linux ; fi
+
+deploy:
+  provider: releases
+  api_key:
+    secure: 5z2c5/jL9D2NBfJFwR7Gf2upJ7Yt0YKXnEZxMA65IAO0zx3wJLEv/5BfxJp/4WK8MhipAbzKQgsP3xoHoGbD98TVEaNoYxIfCWLy5MRsU8hQaJnBJKB1wXym2knaOKNU5IO/56jQTxLFeNZ2Mon8buRs8CkgHRCMKAekSSwk7df+JjiMxiUDTOHVrftJtHXlo3D/OvIllJsapHey2F4M2SGwoBLuXjuVc6tqBsw5rvWbm5VhqWXEnkm656eTuCdufcCQ98GXdMOXOFlZeQuPXnn7OyDT4tw+H8BWMFxYbcjX7mQl3gjl+Vuw+NDUD7ki0ZUkCfp56XCx8B2IPWM5fwhPgvtd97DTZpNNxp7iW7wF3vOw0wLZH5ivaSKwhEU9w70fmrF0H8yjmhPMCvy6742XTaVYEhVWaM/Rp5xaYCz1z4B7jPmar0ar2+XEf86M/dx++OL4enbF3/MsVqiq3I2WDEl78y4+iuqRyzG/4yKCBneP9RlffONZF+K43uKzwsSRfd0sah/V3rKYoLuUlp5U0t26N8YjBXhGjb3XgV2DGjU9rsYwLdiqD1BDAIzKoRaATsGScL41XlG6FIFJChLWkKPeUfewFrB0FP+p7dZLDiQq+Z/QV6xdkkwS3i8poN78CdBkzZHNDGimbXH3OcJ6kD7Ez9mxIQeymCkk3us=
+  file_glob: true
+  file:
+    - "dist-builder/*.AppImage"
+    - "dist-builder/*.dmg"
+    - "dist-builder/latest.yml"
+    - "dist-builder/latest-mac.json"
+  skip_cleanup: true
+  on:
+    tags: true

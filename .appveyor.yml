@@ -1,0 +1,35 @@
+environment:
+  nodejs_version: 6
+
+platform:
+  - x64
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+  - npm install bower
+  - node_modules\.bin\bower install
+
+build_script:
+  - node --version
+  - npm --version
+  - npm run pack:win
+
+test: off
+
+artifacts:
+  - path: 'dist-builder\*.exe'
+
+deploy:
+  provider: GitHub
+  description: "Release description"
+  artifact: /.*\.exe/
+  auth_token:
+    secure: BjSFrChO2+n6IwWnarUA3ZZxKqk5uysIMKdJwrR9iusxK/Gh3x9TiH3FheBqGbA2
+  draft: false
+  prerelease: false
+  # Ensure that appveyor does not create another tag!
+  tag: $(appveyor_repo_tag_name)
+  on:
+    branch: master          # Release from this branch only
+    appveyor_repo_tag: true # Deploy on tag push only

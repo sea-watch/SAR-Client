@@ -1,0 +1,50 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+            <a class="navbar-brand" routerLink="/">Search &amp; Rescue</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a routerLink="/cases">
+                        <i class="zmdi zmdi-map"></i> Cases</a>
+                </li>
+                <li>
+                    <a routerLink="/" ng-class="{active: state=='map'}" id="showMapView">
+                        <i class="zmdi zmdi-view-module"></i> Map</a>
+                </li>
+
+                <li><a id="createCase" (click)="showCreateCaseModal()"><i class="zmdi zmdi-plus"></i> New Case</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                <li id="online_status">
+                    <a>
+                        <div class="status_icon {{is_online}}">
+                            <div class="dot"></div>
+                            <div class="pulse"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a (click)="show_sub_menu = !show_sub_menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><b id="header_username"></b></a>
+                    <ul class="dropdown-menu" role="menu" *ngIf="show_sub_menu" style="display:block!important">
+                        <li>
+                            <a (click)="showSettingsModal()">Settings</a>
+                        </li>
+                        <li>
+                            <a (click)="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

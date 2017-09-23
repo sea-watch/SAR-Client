@@ -1,0 +1,26 @@
+{
+  "name": "sar-client",
+  "description": "",
+  "directory": "src/components/",
+  "main": "",
+  "authors": [
+    "niczem <nic@sea-watch.org>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sea-watch/SAR-Client",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "dexie": "2.0.0-rc.1",
+    "pouchdb": "^6.1.1",
+    "jquery": "^3.1.1",
+    "pouchdb-authentication": "^0.5.5",
+    "pouchdb-find": "^0.10.5",
+    "leaflet": "^1.0.3"
+  }
+}

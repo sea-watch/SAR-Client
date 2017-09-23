@@ -1,0 +1,42 @@
+appId: org.sar-app.client
+productName: SAR-Client
+
+asar: true
+
+directories:
+  output: dist-builder/
+
+dmg:
+  contents:
+    - type: link
+      path: /Applications
+      x: 410
+      y: 150
+    - type: file
+      x: 130
+      y: 150
+
+files:
+  - package.json
+  - dist/**/*
+  # Needed to make sure we have all runtime dependencies.
+  # The devDependencies will NOT be packaged, electron-builder takes
+  # care of that.
+  - node_modules
+
+linux:
+  category: Network
+  packageCategory: Network
+  description: SAR Client application
+  target:
+    - AppImage
+
+mac:
+  target: dmg
+  category: public.app-category.productivity
+
+nsis:
+  artifactName: ${name}-${version}.${ext}
+
+win:
+  target: portable

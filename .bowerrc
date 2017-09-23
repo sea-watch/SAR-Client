@@ -1,0 +1,6 @@
+{
+  "directory" : "src/components",
+  "scripts": {
+    "postinstall": "rm -rf src/components/dexie/addons"
+  }
+}
