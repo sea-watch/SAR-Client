@@ -17,11 +17,13 @@ Run `npm install` to install npm dependencies.
 
 ### Modify config files
 
-Add the remote db to:
-/src/config/config.js
+- Copy `src/config/example_config.js` to `src/config/config.js`
+- Replace the `%%COUCHDB_URL%%` placeholder in `src/config/config.js` with
+  the correct database hostname.
 
-Add remote db and mail credentials for services in
-/script/services/config.js
+If you want to use the service scripts:
+
+- Add remote db and mail credentials for services in `script/services/config.js`
 
 ## Run Application
 
