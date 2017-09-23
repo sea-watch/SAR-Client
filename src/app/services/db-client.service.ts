@@ -21,7 +21,7 @@ declare const dbWorker: any;
 export class DBClientService {
   private dbWorker: Worker;
   private transactions: { [txid: string]: DBTxCallback };
-  private changeListeners: { [dbName: string]: EventEmitter<DBReplicationChange>};
+  private changeListeners: { [dbName: string]: EventEmitter<DBReplicationChange> };
 
   constructor(private configService: ConfigService, private networkStateService: NetworkStateService) {
     this.transactions = {};

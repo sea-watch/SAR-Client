@@ -56,13 +56,13 @@ export class MapViewComponent implements OnInit, OnDestroy {
     // Using setInterval would schedule a new update even if the previous
     // one is not finished yet.
     this.drawVehicleTimeout = window.setTimeout(() => {
-        console.log('drawing!!');
-        this.drawVehicles().then(() => {
-          this.drawVehiclesWithTimer(interval);
-        }).catch(error => {
-          console.log('Error drawing vehicles', error);
-          this.drawVehiclesWithTimer(interval);
-        });
+      console.log('drawing!!');
+      this.drawVehicles().then(() => {
+        this.drawVehiclesWithTimer(interval);
+      }).catch(error => {
+        console.log('Error drawing vehicles', error);
+        this.drawVehiclesWithTimer(interval);
+      });
     }, interval);
   }
 
