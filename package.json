@@ -12,6 +12,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "postinstall": "cp src/config/example_config.js src/config/config.js",
     "lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
     "test": "run-s ng:test",
     "fmt": "tsfmt -r --baseDir src",
