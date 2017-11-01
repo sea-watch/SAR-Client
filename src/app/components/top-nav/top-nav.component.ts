@@ -44,7 +44,6 @@ export class TopNavComponent implements OnInit, OnDestroy {
 
   logout() {
     console.log('logout called');
-    window.localStorage.clear();
     this.authService.logout();
     console.log('logout worked...');
   }
