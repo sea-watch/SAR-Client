@@ -30,6 +30,10 @@ export class TopNavComponent implements OnInit, OnDestroy {
     this.show_sub_menu = false;
   }
 
+  get username() : string {
+    return this.authService.getUsername() || 'nicht eingeloggt';
+  }
+
   ngOnInit() {
     this.networkStatusSubscription = this.networkStateService.addConnectionStatusListener(value => this.is_online = value);
   }

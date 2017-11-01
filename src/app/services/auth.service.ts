@@ -93,4 +93,11 @@ export class AuthService {
   getUserData() {
     return this.sessiondata;
   }
+
+  /**
+   * Get the current username, or null if logged out
+   */
+  getUsername() {
+    return this.sessiondata ? this.sessiondata.name : null;
+  }
 }
