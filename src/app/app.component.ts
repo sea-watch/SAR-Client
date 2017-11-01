@@ -24,8 +24,6 @@ export class AppComponent {
     this.windowOptions = { 'showstartoverlay': true };
 
     this.hideCreateCaseForm = true;
-
-    this.showSettingsModal();
   }
 
   showSettingsModal() {

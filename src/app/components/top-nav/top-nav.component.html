@@ -22,9 +22,10 @@
 
                 <li><a id="createCase" (click)="showCreateCaseModal()"><i class="zmdi zmdi-plus"></i> New Case</a></li>
 
+
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
-
                 <li id="online_status">
                     <a>
                         <div class="status_icon {{is_online}}">
@@ -34,7 +35,7 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a (click)="show_sub_menu = !show_sub_menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><b id="header_username"></b></a>
+                    <a (click)="show_sub_menu = !show_sub_menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ username }} <b id="header_username"></b></a>
                     <ul class="dropdown-menu" role="menu" *ngIf="show_sub_menu" style="display:block!important">
                         <li>
                             <a (click)="showSettingsModal()">Settings</a>

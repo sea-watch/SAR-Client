@@ -6,12 +6,13 @@
 				  <form (ngSubmit)="doLogin()">
 					<input type="text" name="user" placeholder="Username" [(ngModel)]="loginData.username">
 					<input type="password" name="pass" placeholder="Password" [(ngModel)]="loginData.password">
+					
+					<label for="autologin">Autologin</label>
+					<input type="checkbox" id="autologin" name="autologin" [(ngModel)]="loginData.autologin">
 					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
 				  </form>
 				  <div class="login-help">
 				  	<a (click)="proceedOffline=true">Proceed without login</a>
 				  </div>
 				</div>
-
-
 </div>
