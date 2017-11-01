@@ -5,7 +5,11 @@ import { AuthService } from 'app/services/auth.service';
   selector: 'log-in-window',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
-  providers: [AuthService]
+  // authcomponent is already provided in app.module, stating it here again
+  // would instantiate it twice. See
+  // https://stackoverflow.com/questions/36198785/how-do-i-create-a-singleton-
+  // service-in-angular-2
+  providers: []
 })
 export class LogInComponent implements OnInit {
   loginData = {};
