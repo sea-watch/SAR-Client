@@ -967,6 +967,7 @@ a.gray:hover, a.gray:focus, a.gray:active {
               font-weight:400;
               font-size:13px;
               color:#373C42;
+              white-space:pre-wrap;
             }
 
             .log .log-text {

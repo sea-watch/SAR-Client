@@ -25,9 +25,7 @@
 		                            <div class="message-meta">
 		                              <span class="meta_user">{{message.author}}</span> · <span class="timestamp">{{message.createdAt | date: 'y-MM-dd · hh:mm:ss. z'}}</span>  
 		                            </div>
-		                            <div class="text">
-		                              {{message.text}}
-		                            </div>
+		                            <div class="text">{{message.text}}</div>
 
 		                        </div>
 		            </div>
@@ -45,7 +43,7 @@
 	        <div class="input-container">
 	          <form (ngSubmit)="submitMessage()">
 	            <div class="input">
-	              <textarea name="chatInput" id="chatInput" placeholder="Your message…"  (keydown)="keyDownFunction($event)" style="width:100%;">{{data.messagetext}}</textarea>
+	              <textarea name="chatInput" id="chatInput" placeholder="Your message…"  (keydown)="keyDownFunction($event)" [(ngModel)]="chatmessage" style="width:100%;"></textarea>
 	            </div>
 	          </form>
 	        </div>
