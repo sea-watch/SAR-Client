@@ -1,9 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
-import { AppModule } from './app.module';
 import { VehiclesService } from 'app/services/vehicles.service';
 import { ChatService } from 'app/services/chat.service';
-import { ModalService } from 'app/services/modal.service';
-import { SettingsComponent } from 'app/components/settings/settings.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +13,7 @@ export class AppComponent {
   logged_in;
   hideCreateCaseForm;
   windowOptions = { 'showstartoverlay': false };
-  constructor(private vehiclesService: VehiclesService, private modalService: ModalService) {
+  constructor(private vehiclesService: VehiclesService) {
 
     vehiclesService.getVehicles().then((vehicles) => console.log('VEHICLES', vehicles));
     this.title = 'SAR Client';
@@ -24,11 +21,5 @@ export class AppComponent {
     this.windowOptions = { 'showstartoverlay': true };
 
     this.hideCreateCaseForm = true;
-  }
-
-  showSettingsModal() {
-    this.modalService.create<SettingsComponent>(AppModule, SettingsComponent,
-      {
-      });
   }
 }
