@@ -118,8 +118,12 @@ class DBWorker {
           break;
 
         case 'messages:all':
+          console.log("debug messages all", msg);
           this.db('messages').all({
             include_docs: true,
+            descending: true,
+            limit: msg.args.limit,
+            startkey: msg.args.startkey
           }, this.reply(msg), this.error(msg));
           break;
         case 'messages:find':

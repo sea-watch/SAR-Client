@@ -920,6 +920,7 @@ a.gray:hover, a.gray:focus, a.gray:active {
             right: 15px;
             bottom: 65px;
             left: 15px;
+            padding-top: 44px;
           }
 
           .image_box {
@@ -982,7 +983,7 @@ a.gray:hover, a.gray:focus, a.gray:active {
             .log .message {display:block; width:100%;}
 
             .message-container {position:relative; bottom:0px;     align-items: flex-end;
-    display: flex;    justify-content: flex-start; margin-bottom:15px; top:44px; max-height:100%; }
+    display: flex;    justify-content: flex-start; margin-bottom:15px; max-height:100%; }
 
 
             .input-container {

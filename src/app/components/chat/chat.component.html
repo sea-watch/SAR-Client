@@ -12,7 +12,7 @@
 				</div>
 				</div>
 	        <div class="message-list" id="message_list">
-	        	 
+	        	<button class="btn btn-default load-more" (click)='loadMessages(5)'>Load more messages...</button>
 	            <div *ngFor="let message of messages;">
 		            <!--repeat messages-->
 		            <div class="message-container other_user" *ngIf="message.type == 'message'&&(filtertype == 'chat'||filtertype == 'all')">

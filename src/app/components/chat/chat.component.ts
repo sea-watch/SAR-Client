@@ -10,7 +10,7 @@ import { Message } from '../../models/message';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  messages;
+  messages: Array<Message> = [];
   filtertype;
   chatmessage: string; // the current textarea value
   constructor(public chatService: ChatService, private authService: AuthService) {
@@ -22,20 +22,25 @@ export class ChatComponent implements OnInit {
   }
 
   /**
-   * Reload message list from db
+   * Load x messages from the db, optionally scroll down afterwards
    */
-  updateMessages() {
-    console.log('reloading message list..');
-    this.chatService.getMessages().then(messages => {
-      
-      this.messages = messages;
-      console.log('updated message list: ' + this.messages.length + ' messages');
-      this.scrollDown();
+  loadMessages(limit: number, scrollDown: boolean = false) {
+    console.debug('loading ' + limit + ' more messages..');
+
+    // if we already have some messages, start with the oldest one
+    var startKey = null;
+    if (this.messages.length > 0) {
+      startKey = this.messages[0]._id;
+      // because the "startKey" message is included, we need to increment the limit
+      limit += 1;
+    }
+    this.chatService.loadAdditionalMessages(limit, startKey).then(messages => {
+      this.updateMessageList(scrollDown);
     });
   }
 
   ngOnInit() {
-    this.updateMessages();
+    this.loadMessages(10, true);
   }
 
   /**
@@ -71,10 +76,25 @@ export class ChatComponent implements OnInit {
 
       // after saving, empty the textarea and reload the message list
       self.chatmessage = '';
-      self.updateMessages();
+      self.updateMessageList(true);
     });
   }
 
+  /**
+   * Refresh the message list (e.g. refresh the display with the loaded messages)
+   */
+  updateMessageList(scrollDown: boolean = false){
+    this.messages = this.chatService.getLoadedMessages();
+    console.debug(this.messages);
+    console.log('updated message list: ' + this.messages.length + ' messages');
+    if (scrollDown) {
+      this.scrollDown();
+    }
+  }
+
+  /**
+   * Scroll the chat window down to the bottom
+   */
   scrollDown() {
     setTimeout(function() {
       const objDiv = document.getElementById('message_list');
