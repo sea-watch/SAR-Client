@@ -45,19 +45,27 @@ export class ChatService {
   }
 
   /**
+   * Sort an array of messages by time
+   */
+  sortMessages(messages) {
+    return messages.sort(
+      (a, b) => {
+        return a._id > b._id ? 1 : (a._id < b._id ? -1 : 0);
+      }
+    );
+  }
+
+  /**
    * Get all messages from the db
    */
   getMessages(): Promise<Array<Message>> {
+    var self = this;
     return new Promise((resolve, reject) => {
       this.dbClientService.newTransaction(DBTxActions.MESSAGES_ALL)
         .then((msg: DBTxReplyMessage) => {
 
           var messages = msg.payload.rows.map(r => plainToClass(Message, r.doc));
-          messages = messages.sort(
-            (a, b) => {
-              return a._id > b._id ? 1 : (a._id < b._id ? -1 : 0);
-            }
-          );
+          messages = self.sortMessages(messages);
           resolve(messages);
         }).catch(reject);
     });
