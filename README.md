@@ -1,7 +1,7 @@
 # SarClient
 
 [![Travis-CI Build Status](https://travis-ci.org/sea-watch/SAR-Client.svg?branch=master)](https://travis-ci.org/sea-watch/SAR-Client)
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/junqykua8xanmt9f/branch/master?svg=true)](https://ci.appveyor.com/project/xroboter/sar-client/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/a3t1toptm7ox1osu?svg=true)](https://ci.appveyor.com/project/niczem/sar-client)
 
 ## About
 We want to improve the coordination of the rescue missions in the Mediterranean. The best way to do that is with a specialised app that makes it possible to share information on the position and situation of rafts in distress.
