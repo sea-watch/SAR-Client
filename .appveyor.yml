@@ -1,5 +1,7 @@
 environment:
   nodejs_version: 6
+  COUCHDB_URL:
+    secure: coWvcM90zsrR+B/Yt6Ig7jYlFXOXDos9tlfA48q5DfE=
 
 platform:
   - x64
@@ -9,6 +11,9 @@ install:
   - npm install
   - npm install bower
   - node_modules\.bin\bower install
+
+before_build:
+  - ps: (Get-Content src\config\example_config.js).replace('%%COUCHDB_URL%%', $env:COUCHDB_URL) | Set-Content src\config\config.js
 
 build_script:
   - node --version
@@ -25,7 +30,7 @@ deploy:
   description: "Release description"
   artifact: /.*\.exe/
   auth_token:
-    secure: BjSFrChO2+n6IwWnarUA3ZZxKqk5uysIMKdJwrR9iusxK/Gh3x9TiH3FheBqGbA2
+    secure: HxdSonegIkk9t4jki/7YfVOLV3zagf1n6iXZVDXHjHK+OPRXT9f0VZjLGlE+YwEw
   draft: false
   prerelease: false
   # Ensure that appveyor does not create another tag!
