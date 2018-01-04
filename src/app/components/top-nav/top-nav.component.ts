@@ -30,7 +30,7 @@ export class TopNavComponent implements OnInit, OnDestroy {
     this.show_sub_menu = false;
   }
 
-  get username() : string {
+  get username(): string {
     return this.authService.getUsername() || 'nicht eingeloggt';
   }
 

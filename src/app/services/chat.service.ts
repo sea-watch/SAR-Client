@@ -19,7 +19,7 @@ export class ChatService {
   /**
    * Create a new Message instance with a certain text & author
    */
-  newMessage(message: string, username: string) : Message {
+  newMessage(message: string, username: string): Message {
     return plainToClass(Message, {
       _id: new Date().toISOString() + '-writtenBy-' + username,
       author: username,
@@ -51,7 +51,7 @@ export class ChatService {
   /**
    * Sort an array of messages by time
    */
-  sortMessages(messages: Array<Message>) : Array<Message> {
+  sortMessages(messages: Array<Message>): Array<Message> {
     return messages.sort(
       (a, b) => {
         return a._id > b._id ? 1 : (a._id < b._id ? -1 : 0);
@@ -63,7 +63,7 @@ export class ChatService {
    * Add a list of messages to our list of loaded messages. Also remove
    * duplicates and sort them
    */
-  addMessages(messages: Array<Message>){
+  addMessages(messages: Array<Message>) {
     this.loadedMessages = this
       .sortMessages(this.loadedMessages.concat(messages))
       // remove duplicate _ids, see https://stackoverflow.com/questions/2218999/remove-duplicates-from-an-array-of-objects-in-javascript
@@ -78,10 +78,10 @@ export class ChatService {
    * Load latest x messages from the db, optionally limited and starting from
    * a certain startkey
    */
-  loadAdditionalMessages(limit:number = 10, startkey:string = null): Promise<Array<Message>> {
+  loadAdditionalMessages(limit: number = 10, startkey: string = null): Promise<Array<Message>> {
     var self = this;
     return new Promise((resolve, reject) => {
-      this.dbClientService.newTransaction(DBTxActions.MESSAGES_ALL, {limit: limit, startkey: startkey})
+      this.dbClientService.newTransaction(DBTxActions.MESSAGES_ALL, { limit: limit, startkey: startkey })
         .then((msg: DBTxReplyMessage) => {
 
           // create Message models from the result and save them
@@ -96,7 +96,7 @@ export class ChatService {
   /**
    * Return all currently loaded messages
    */
-  getLoadedMessages() : Array<Message> {
+  getLoadedMessages(): Array<Message> {
     return this.loadedMessages;
   }
 

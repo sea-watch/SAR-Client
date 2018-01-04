@@ -83,7 +83,7 @@ export class ChatComponent implements OnInit {
   /**
    * Refresh the message list (e.g. refresh the display with the loaded messages)
    */
-  updateMessageList(scrollDown: boolean = false){
+  updateMessageList(scrollDown: boolean = false) {
     this.messages = this.chatService.getLoadedMessages();
     console.debug(this.messages);
     console.log('updated message list: ' + this.messages.length + ' messages');

@@ -125,7 +125,7 @@ export class AuthService {
   /**
    * Delete any autologin data
    */
-  deleteLoginData(){
+  deleteLoginData() {
     delete localStorage.autoLoginUsername;
     delete localStorage.autoLoginPassword;
     console.log('deleted localStorage');
@@ -134,7 +134,7 @@ export class AuthService {
   /**
    * Return autologin data
    */
-  getLoginData(){
+  getLoginData() {
     return {
       username: localStorage.autoLoginUsername,
       password: localStorage.autoLoginPassword
