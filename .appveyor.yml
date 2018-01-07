@@ -30,7 +30,7 @@ deploy:
   description: "Release description"
   artifact: /.*\.exe/
   auth_token:
-    secure: HxdSonegIkk9t4jki/7YfVOLV3zagf1n6iXZVDXHjHK+OPRXT9f0VZjLGlE+YwEw
+    secure: a46cad2b5ba75eb4fa75190abb56c1786c9c9dfb
   draft: false
   prerelease: false
   # Ensure that appveyor does not create another tag!
