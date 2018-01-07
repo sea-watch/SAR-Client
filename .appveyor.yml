@@ -1,7 +1,7 @@
 environment:
   nodejs_version: 6
   COUCHDB_URL:
-    secure: coWvcM90zsrR+B/Yt6Ig7jYlFXOXDos9tlfA48q5DfE=
+    secure: hzgHdrfKK711CWypCDk3aR0YCwyaZ5tsrLUTq/xIHsE=
 
 platform:
   - x64
