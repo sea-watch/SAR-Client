@@ -12,7 +12,7 @@ declare var map_inited: any;
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
-  styleUrls: ['./map-view.component.css'],
+  styleUrls: ['./map-view.component.css']
 })
 export class MapViewComponent implements OnInit, OnDestroy {
   public map: any;

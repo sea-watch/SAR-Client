@@ -42,11 +42,15 @@ export class LocationsService {
     });
   }
 
-  store(location: Location): Promise<Location> {
+  store(location: Location) {
     console.log('ERROR: locations#store not implemented', location);
 
-    return new Promise((_, reject) => {
-      reject(new Error('Storing location not implemented'));
+    this.dbClientService.newTransaction(DBTxActions.LOCATIONS_STORE, {
+      payload: location,
+    }).then((msg: DBTxReplyMessage) => {
+      console.log(msg);
+    }).catch((error) => {
+      console.log(error);
     });
   }
 }
