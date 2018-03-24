@@ -46,7 +46,7 @@
     "class-transformer": "^0.1.8",
     "cloudant-backup": "0.0.2",
     "cloudant-user": "^2.0.0",
-    "couchbackup": "^1.5.0",
+    "@cloudant/couchbackup": "^2.2.0",
     "electron-in-page-search": "^1.2.3",
     "electron-settings": "^3.0.14",
     "reflect-metadata": "^0.1.10",
