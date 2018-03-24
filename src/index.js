@@ -57,6 +57,7 @@ function createMenu(){
         submenu: [
             { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
             { label: "Debugger", accelerator: "Shift+CmdOrCtrl+I", click: function(){ win.webContents.openDevTools() }},
+            { label: "Stick to top", accelerator: "Shift+CmdOrCtrl+T", click: function(){ win.setAlwaysOnTop(!win.isAlwaysOnTop())}},
             { type: "separator" },
             { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
         ]}, {
