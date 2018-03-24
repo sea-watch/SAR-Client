@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppComponent } from '../../app.component';
+import { MapViewComponent } from '../map-view/map-view.component';
 
 import { Case } from '../../interfaces/case';
 import { Status } from '../../interfaces/status';
@@ -24,7 +25,7 @@ import { DBClientService } from '../../services/db-client.service';
   selector: 'create-case-form',
   templateUrl: './create-case-form.component.html',
   styleUrls: ['./create-case-form.component.css'],
-  providers: [FormBuilder]
+  providers: [FormBuilder, MapViewComponent]
 })
 
 @Modal()
@@ -60,7 +61,8 @@ export class CreateCaseFormComponent implements OnInit, OnDestroy, Listener {
     private caseService: CasesService,
     private locationService: LocationsService,
     private authService: AuthService,
-    private dbClientService: DBClientService) {
+    private dbClientService: DBClientService,
+    private mapView: MapViewComponent) {
 
     this.hideCreateCaseForm = false;
     this.casemeta = {
@@ -155,6 +157,8 @@ export class CreateCaseFormComponent implements OnInit, OnDestroy, Listener {
     this.caseService.store(this.case);
     // ModalContainer.closeModal();
     this.hideCreateCaseForm = true;
+
+    this.mapView.drawCases();
   }
   updatePosition() {
     this.updateLocationType(this.casemeta.location_type);

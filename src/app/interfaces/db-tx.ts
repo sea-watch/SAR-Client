@@ -3,6 +3,7 @@ export class DBTxActions {
   static readonly DB_CLEAR_ALL = 'db:clear:all';
 
   static readonly LOCATIONS_GET = 'locations:get';
+  static readonly LOCATIONS_STORE = 'locations:store';
   static readonly LOCATIONS_FIND_ITEM = 'locations:find-item';
 
   static readonly CASES_ALL = 'cases:all';

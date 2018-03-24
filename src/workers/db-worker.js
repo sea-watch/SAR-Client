@@ -95,6 +95,9 @@ class DBWorker {
         case 'locations:find-item':
           this.db('locations').findItem(msg.args, this.reply(msg), this.error(msg));
           break;
+        case 'locations:store':
+          this.db('locations').storeDoc(msg.args.payload, this.reply(msg), this.error(msg));
+          break;
 
         case 'cases:all':
           this.db('cases').all({
