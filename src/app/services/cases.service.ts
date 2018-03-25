@@ -9,6 +9,7 @@ declare var md5: any;
 
 import { AuthService } from '../services/auth.service';
 import { LocationsService } from '../services/locations.service';
+import { StatusesService } from '../services/statuses.service';
 import { Case } from '../interfaces/case';
 import { Location } from '../interfaces/location';
 import { DBClientService } from '../services/db-client.service';
@@ -23,11 +24,16 @@ export class CasesService {
 
   remote;
   filteredStatusesSource = new Subject<Array<any>>();
+  statuses;
 
   public filteredStatuses = new BehaviorSubject([]);
-  constructor(dbclientService: DBClientService, private locationService: LocationsService, private authService: AuthService) {
+  constructor(dbclientService: DBClientService, private locationService: LocationsService, private authService: AuthService, private StatusesService: StatusesService) {
     this.dbClientService = dbclientService;
     this.filtered_statuses = [1, 2, 3, 4, 5];
+
+    if (StatusesService.statuses)
+      this.statuses = StatusesService.statuses;
+
   }
 
   store(currentCase: Case) {
@@ -98,10 +104,26 @@ export class CasesService {
     return selfCopy;
   }
   toggleStatusFilter(status_id: string) {
-    if (this.filtered_statuses.indexOf(status_id) === -1)
-      this.filtered_statuses.push(status_id);
-    else
-      this.filtered_statuses.splice(this.filtered_statuses.indexOf(status_id), 1);
+    console.log(status_id);
+
+    if (status_id === 'all') {
+      if (this.filtered_statuses.length >= this.statuses.length) {
+        this.filtered_statuses = [];
+      } else {
+
+        this.filtered_statuses = [];
+        for (var i in this.statuses) {
+          console.log(this.statuses);
+          this.filtered_statuses.push(parseInt(i) + 1);
+        }
+
+      }
+    } else {
+      if (this.filtered_statuses.indexOf(status_id) === -1)
+        this.filtered_statuses.push(status_id);
+      else
+        this.filtered_statuses.splice(this.filtered_statuses.indexOf(status_id), 1);
+    }
 
 
     this.filteredStatuses.next(this.filtered_statuses);
