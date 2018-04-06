@@ -106,7 +106,7 @@ export class CasesService {
   toggleStatusFilter(status_id: string) {
     console.log(status_id);
 
-    if (status_id === 'all')
+    if (status_id === 'all') {
       if (this.filtered_statuses.length >= this.statuses.length) {
         this.filtered_statuses = [];
       } else {
@@ -118,21 +118,21 @@ export class CasesService {
         }
 
       }
-  } else {
-  if (this.filtered_statuses.indexOf(status_id) === -1)
-    this.filtered_statuses.push(status_id);
-  else
-    this.filtered_statuses.splice(this.filtered_statuses.indexOf(status_id), 1);
-}
+    } else {
+      if (this.filtered_statuses.indexOf(status_id) === -1)
+        this.filtered_statuses.push(status_id);
+      else
+        this.filtered_statuses.splice(this.filtered_statuses.indexOf(status_id), 1);
+    }
 
 
-this.filteredStatuses.next(this.filtered_statuses);
-}
-getFilteredStatuses() {
-  return this.filtered_statuses;
-}
+    this.filteredStatuses.next(this.filtered_statuses);
+  }
+  getFilteredStatuses() {
+    return this.filtered_statuses;
+  }
 
-getCaseHash(case_id: string) {
-  return md5(case_id).substr(0, 4).toUpperCase();
-}
+  getCaseHash(case_id: string) {
+    return md5(case_id).substr(0, 4).toUpperCase();
+  }
 }
