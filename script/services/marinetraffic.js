@@ -13,7 +13,7 @@ var service = new function(){
 
   this.initDBs = function(){
 
-      
+
 
       this.dbConfig = {
         auth: {
@@ -93,7 +93,7 @@ var service = new function(){
                         utc_secons : positions[i][11]
                       }
                       console.log(Position);
-console.log(ship);
+                      console.log(ship);
                       if(ship.MMSI == Position.mmsi){
                                   //add position
                                   positionsDB.put({
@@ -137,5 +137,3 @@ console.log(ship);
 }
 
 service.run();
-
-

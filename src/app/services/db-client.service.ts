@@ -97,6 +97,7 @@ export class DBClientService {
         username: username,
         password: password,
       }).then((response) => {
+        console.log(response);
         if (response.type === 'error') {
           reject(response.error);
         } else {

@@ -1,7 +1,7 @@
 module.exports = {
-	db_remote_url:'',
-	db_username:'',
-	db_password:'',
+	db_remote_url:'http://93.95.228.166:5984/_utils/index.html',
+	db_username:'sea-watch',
+	db_password:'1337seawatch1337',
 
 	marinetraffic_api_key:'',
 
@@ -37,4 +37,3 @@ module.exports = {
 
 	send_mails:false
 }
-
