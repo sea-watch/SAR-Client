@@ -34,6 +34,10 @@ var service = new function() {
 
     var ID = 'SW3';
 
+    var lastUpdateTimestamp = -1;
+
+    var intervall = 5 * 1000;
+
     server.on('listening', function () {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ":" + address.port);
@@ -53,19 +57,24 @@ var service = new function() {
           console.log('latitude:' + data['latitude']);
         }
 
-        self.positionsDB.put({
-          "_id": new Date().toISOString()+"-locationOf-" + ID,
-          "latitude": data['latitude'],
-          "longitude": data['longitude'],
-          "heading": data['heading'],
-          "origin": 'NMEA',
-          "type": "vehicle_location",
-          "itemId": ID,
-        }).then(function (response) {
-          console.log('location created');
-        }).catch(function (err) {
-          console.log(err);
-        });
+        if(Date.now() - lastUpdateTimestamp > intervall){
+
+          self.positionsDB.put({
+            "_id": new Date().toISOString()+"-locationOf-" + ID,
+            "latitude": data['latitude'],
+            "longitude": data['longitude'],
+            "heading": data['heading'],
+            "origin": 'NMEA',
+            "type": "vehicle_location",
+            "itemId": ID,
+          }).then(function (response) {
+            console.log('location created');
+            lastUpdateTimestamp = Date.now();
+          }).catch(function (err) {
+            console.log(err);
+          });
+
+        }
     });
 
     server.bind(PORT, HOST);
