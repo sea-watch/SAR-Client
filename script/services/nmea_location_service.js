@@ -8,6 +8,8 @@ var config = require('./nmea.config.js');
 
 var parser = new AisParser({ checksum : false });
 
+var mmsi = config.mmsi;
+
 var service = new function() {
 
   this.initDBs = function(){
@@ -36,7 +38,7 @@ var service = new function() {
 
     var lastUpdateTimestamp = -1;
 
-    var intervall = 5 * 1000;
+    var intervall = 5 * 1000 * 60;
 
     server.on('listening', function () {
         var address = server.address();
@@ -48,7 +50,7 @@ var service = new function() {
         var msgOk = AisParser.checksumValid(message);
         var data = parser.parse(message);
 
-        if(config.DEBUG && data['aisType'] === 3){
+        if(config.DEBUG && data['mmsi'] === mmsi){
           console.log('mmsi:' + data['mmsi']);
           console.log('heading:' + data['heading']);
           console.log('cog:' + data['cog']);
@@ -57,7 +59,7 @@ var service = new function() {
           console.log('latitude:' + data['latitude']);
         }
 
-        if(Date.now() - lastUpdateTimestamp > intervall){
+        if(Date.now() - lastUpdateTimestamp > intervall && data['mmsi'] === mmsi){
 
           self.positionsDB.put({
             "_id": new Date().toISOString()+"-locationOf-" + ID,
@@ -68,7 +70,7 @@ var service = new function() {
             "type": "vehicle_location",
             "itemId": ID,
           }).then(function (response) {
-            console.log('location created');
+            console.log(new Date().toISOString() + ': location for ' + data['mmsi'] + ' in position ' + data['latitude'] + ', ' + data['longitude'] + ' (AIS Type ' + data['aisType'] + ') created');
             lastUpdateTimestamp = Date.now();
           }).catch(function (err) {
             console.log(err);
